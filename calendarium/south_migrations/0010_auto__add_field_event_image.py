@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Event.image'
         db.add_column('calendarium_event', 'image',
-                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['filer.Image'], null=True, blank=True),
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['filer.Image'], on_delete=models.CASCADE, null=True, blank=True),
                       keep_default=False)
 
 

@@ -17,9 +17,9 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=256)),
             ('description', self.gf('django.db.models.fields.TextField')(max_length=2048)),
             ('creation_date', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-            ('created_by', self.gf('django.db.models.fields.related.ForeignKey')(related_name='events', to=orm['auth.User'])),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(related_name='events', to=orm['calendarium.EventCategory'])),
-            ('rule', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['calendarium.Rule'])),
+            ('created_by', self.gf('django.db.models.fields.related.ForeignKey')(related_name='events', on_delete=models.CASCADE, to=orm['auth.User'])),
+            ('category', self.gf('django.db.models.fields.related.ForeignKey')(related_name='events', on_delete=models.CASCADE, to=orm['calendarium.EventCategory'])),
+            ('rule', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['calendarium.Rule'], on_delete=models.CASCADE)),
             ('end_recurring_period', self.gf('django.db.models.fields.DateTimeField')()),
         ))
         db.send_create_signal('calendarium', ['Event'])

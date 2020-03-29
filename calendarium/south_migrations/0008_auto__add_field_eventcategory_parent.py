@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'EventCategory.parent'
         db.add_column('calendarium_eventcategory', 'parent',
-                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='parents', null=True, to=orm['calendarium.EventCategory']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='parents', null=True, to=orm['calendarium.EventCategory'], on_delete=models.CASCADE),
                       keep_default=False)
 
 

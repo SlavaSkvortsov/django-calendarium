@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=256, verbose_name='Name')),
                 ('slug', models.SlugField(max_length=256, verbose_name='Slug', blank=True)),
                 ('color', calendarium.models.ColorField(max_length=6, verbose_name='Color')),
-                ('parent', models.ForeignKey(related_name='parents', verbose_name='Parent', blank=True, to='calendarium.EventCategory', null=True)),
+                ('parent', models.ForeignKey(related_name='parents', verbose_name='Parent', blank=True, to='calendarium.EventCategory', null=True, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('object_id', models.IntegerField()),
                 ('relation_type', models.CharField(max_length=32, null=True, verbose_name='Relation type', blank=True)),
-                ('content_type', models.ForeignKey(to='contenttypes.ContentType')),
-                ('event', models.ForeignKey(verbose_name='Event', to='calendarium.Event')),
+                ('content_type', models.ForeignKey(to='contenttypes.ContentType', on_delete=models.CASCADE)),
+                ('event', models.ForeignKey(verbose_name='Event', to='calendarium.Event', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -65,8 +65,8 @@ class Migration(migrations.Migration):
                 ('original_end', models.DateTimeField(verbose_name='Original end')),
                 ('cancelled', models.BooleanField(default=False, verbose_name='Cancelled')),
                 ('title', models.CharField(max_length=256, verbose_name='Title', blank=True)),
-                ('created_by', models.ForeignKey(related_name='occurrences', verbose_name='Created by', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
-                ('event', models.ForeignKey(related_name='occurrences', verbose_name='Event', to='calendarium.Event')),
+                ('created_by', models.ForeignKey(related_name='occurrences', on_delete=models.CASCADE, verbose_name='Created by', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('event', models.ForeignKey(related_name='occurrences', on_delete=models.CASCADE, verbose_name='Event', to='calendarium.Event')),
             ],
             options={
                 'abstract': False,
@@ -85,21 +85,21 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='event',
             name='category',
-            field=models.ForeignKey(related_name='events', verbose_name='Category', blank=True, to='calendarium.EventCategory', null=True),
+            field=models.ForeignKey(related_name='events', on_delete=models.CASCADE, verbose_name='Category', blank=True, to='calendarium.EventCategory', null=True),
         ),
         migrations.AddField(
             model_name='event',
             name='created_by',
-            field=models.ForeignKey(related_name='events', verbose_name='Created by', blank=True, to=settings.AUTH_USER_MODEL, null=True),
+            field=models.ForeignKey(related_name='events', on_delete=models.CASCADE, verbose_name='Created by', blank=True, to=settings.AUTH_USER_MODEL, null=True),
         ),
         migrations.AddField(
             model_name='event',
             name='image',
-            field=filer.fields.image.FilerImageField(related_name='calendarium_event_images', verbose_name='Image', blank=True, to='filer.Image', null=True),
+            field=filer.fields.image.FilerImageField(related_name='calendarium_event_images', on_delete=models.CASCADE, verbose_name='Image', blank=True, to='filer.Image', null=True),
         ),
         migrations.AddField(
             model_name='event',
             name='rule',
-            field=models.ForeignKey(verbose_name='Rule', blank=True, to='calendarium.Rule', null=True),
+            field=models.ForeignKey(verbose_name='Rule', on_delete=models.CASCADE, blank=True, to='calendarium.Rule', null=True),
         ),
     ]

@@ -11,7 +11,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
 
         # Changing field 'Event.created_by'
-        db.alter_column('calendarium_event', 'created_by_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['auth.User']))
+        db.alter_column('calendarium_event', 'created_by_id', self.gf('django.db.models.fields.related.ForeignKey')(null=True, to=orm['auth.User'], on_delete=models.CASCADE))
 
     def backwards(self, orm):
 
